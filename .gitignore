@@ -1,0 +1,17 @@
+*~
+
+*.egg-info
+*.pyc
+*.pyo
+
+.project
+.pydevproject
+/.settings
+/.vscode
+
+/build
+/dist
+/tags
+
+# OSX generated files
+.DS_Store
