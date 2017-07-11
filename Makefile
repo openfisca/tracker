@@ -9,4 +9,4 @@ flake8:
 	flake8 `git ls-files | grep "\.py$$"`
 
 test: flake8
-	nosetests tracker --exe --with-doctest
+	nosetests openfisca_tracker --exe --with-doctest
