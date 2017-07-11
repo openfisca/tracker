@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import time
+
 from nose.tools import assert_equal, assert_true
 
 from tracker.piwik import *
-
-from numpy.ma.testutils import assert_equal
 
 # TODO: test with old and preview api app...
 
@@ -23,19 +23,20 @@ openfisca_urls = [
 def test_track_unirest():
     thread = track('https://api.openfisca.fr')
 
-def test_send_requests():
-    requests = set_requests(openfisca_urls)
-    for req in requests:
-        assert req is not None, req
-        assert req.response is None
+# def test_send_requests():
+#     requests = set_requests(openfisca_urls)
+#     for req in requests:
+#         assert req is not None, req
+#         assert req.response is None
 
-    send_all_and_handle(requests, exception_handler)  # responses
+#     send_all_and_handle(requests, exception_handler)  # responses
 
-    for req in requests:
-        assert False, req.response
+#     for req in requests:
+#         assert False, req.response
 
-#    for res in responses:
-#        assert res is not None, res
+# #    for res in responses:
+# #        assert res is not None, res
+
 
 def test_new_piwik_url():
     piwik_url = new_piwik_url('https://api.openfisca.fr')
@@ -43,9 +44,13 @@ def test_new_piwik_url():
 
 
 def test_send_callback():
-    results = {}
-    def callback():
-        results['tracked'] = True
+    log = []
+    def callback(response):
+        log.append('callback')
 
     track('https://api.openfisca.fr', callback = callback)
-    assert_true(results.get('tracked'))
+    log.append('main')
+
+    assert_equal(log[0], 'main')
+    time.sleep(0.1)
+    assert_equal(log[1], 'callback')
