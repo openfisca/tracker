@@ -2,7 +2,8 @@
 
 from nose.tools import assert_equal, assert_true
 
-from tracker.piwik import set_requests, send_all_and_handle, exception_handler, new_piwik_url, track
+from tracker.piwik import *
+
 from numpy.ma.testutils import assert_equal
 
 # TODO: test with old and preview api app...
@@ -19,6 +20,8 @@ openfisca_urls = [
 # curl http://127.0.0.1:2000/api/1/calculate -X POST --data @./tests/json/test_calculate.json --header 'Content-type: application/json'
 # curl http://127.0.0.1:2000/api/1/simulate -X POST --data @./tests/json/test_simulate.json --header 'Content-type: application/json'
 
+def test_track_unirest():
+    thread = track('https://api.openfisca.fr')
 
 def test_send_requests():
     requests = set_requests(openfisca_urls)
@@ -45,6 +48,4 @@ def test_send_callback():
         results['tracked'] = True
 
     track('https://api.openfisca.fr', callback = callback)
-
     assert_true(results.get('tracked'))
-

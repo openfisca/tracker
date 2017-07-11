@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import os
+import pkg_resources
+
 import logging
 import ConfigParser
 
 from urllib import urlencode
 from urlparse import urljoin
 
-import grequests
+from unirest import post
 
 # TODO: Bulk tracking (from flask import jsonify)
 # {
@@ -25,7 +28,7 @@ log = logging.getLogger(__name__)
 
 # Piwik parameters:
 
-
+URL="https://openfisca.innocraft.cloud/piwik.php"
 idsite=1
 rec=1
 
@@ -33,34 +36,15 @@ rec=1
 # TODO: Track unique visitors with _id?
 
 def new_piwik_url(url):  # The full URL for the current action.
-    params = urlencode({'idsite': idsite, 'rec': rec, 'url': url })
+    params = urlencode(get_piwik_params(ur))
     return u'https://openfisca.innocraft.cloud/piwik.php?' + params
 
-
-def set_requests(urls):
-    return (grequests.get(u) for u in urls)
-
-
-def set_timedout_requests(urls, timeout):
-    return (grequests.get(u, timeout=timeout) for u in urls)
-
-
-def send_all(requests):
-    grequests.map(requests)
-
-
-def send_all_and_handle(requests, exception_handler):
-    grequests.map(requests, exception_handler=exception_handler)
-
+def get_piwik_params(url):
+    return {'idsite': idsite, 'rec': rec, 'url': url }
 
 # In case of timeout or any other exception during the connection of the request:
 def exception_handler(request, exception):
     log.error("Request failed")
 
-def track(url, callback):
-    return
-
-
-# def track(urls):
-#     requests = set_requests(urls)
-#     send_all(requests, exception_handler)
+def track(action_url, callback=None):
+    post(URL, params=get_piwik_params(action_url), callback=callback)
