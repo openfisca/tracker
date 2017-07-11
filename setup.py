@@ -11,10 +11,10 @@ setup(
     author="",
     packages=find_packages(),
     include_package_data=True,
-    install_requires = [
+    install_requires=[
         'OpenFisca-Web-API >= 6.0.0',
         ],
-    extras_require = {
+    extras_require={
         'test': [
             'nose',
             ]
