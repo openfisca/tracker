@@ -36,7 +36,7 @@ rec=1
 # TODO: Track unique visitors with _id?
 
 def new_piwik_url(url):  # The full URL for the current action.
-    params = urlencode(get_piwik_params(ur))
+    params = urlencode(get_piwik_params(url))
     return u'https://openfisca.innocraft.cloud/piwik.php?' + params
 
 def get_piwik_params(url):
