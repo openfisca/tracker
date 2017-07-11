@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from nose.tools import assert_equal
+from nose.tools import assert_equal, assert_true
 
-from tracker.piwik import set_requests, send_all_and_handle, exception_handler, get_raw_config_parser, new_piwik_url
+from tracker.piwik import set_requests, send_all_and_handle, exception_handler, new_piwik_url, track
 from numpy.ma.testutils import assert_equal
 
 # TODO: test with old and preview api app...
@@ -38,6 +38,13 @@ def test_new_piwik_url():
     piwik_url = new_piwik_url('https://api.openfisca.fr')
     assert_equal(piwik_url, "https://openfisca.innocraft.cloud/piwik.php?url=https%3A%2F%2Fapi.openfisca.fr&rec=1&idsite=1")
 
-def test_raw_config_parser():
-    config_parser = get_raw_config_parser()
-    assert_equal(config_parser.get('IDSITE'), 1)
+
+def test_send_callback():
+    results = {}
+    def callback():
+        results['tracked'] = True
+
+    track('https://api.openfisca.fr', callback = callback)
+
+    assert_true(results.get('tracked'))
+

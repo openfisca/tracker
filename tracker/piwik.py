@@ -32,14 +32,6 @@ rec=1
 # TODO: Use action_name to create a category/api version number?
 # TODO: Track unique visitors with _id?
 
-def get_raw_config_parser():
-    pkg_root_dir = pkg_resources.get_distribution('Tracker').location
-    conf_file_path = os.path.join(pkg_root_dir, CONF_FILE_NAME)
-
-    config = ConfigParser.RawConfigParser()
-    raw_config_parser = config.read(conf_file_path)
-    return raw_config_parser
-
 def new_piwik_url(url):  # The full URL for the current action.
     params = urlencode({'idsite': idsite, 'rec': rec, 'url': url })
     return u'https://openfisca.innocraft.cloud/piwik.php?' + params
@@ -65,7 +57,10 @@ def send_all_and_handle(requests, exception_handler):
 def exception_handler(request, exception):
     log.error("Request failed")
 
+def track(url, callback):
+    return
 
-def track(urls):
-    requests = set_requests(urls)
-    send_all(requests, exception_handler)
+
+# def track(urls):
+#     requests = set_requests(urls)
+#     send_all(requests, exception_handler)
