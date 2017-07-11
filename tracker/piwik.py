@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import grequests
 import logging
+import ConfigParser
 
-# TODO: Bulk tracking
+from urllib import urlencode
+from urlparse import urljoin
+
+import grequests
+
+# TODO: Bulk tracking (from flask import jsonify)
 # {
 #    "requests": [
 #       "?idsite=1&url=http://example.org&action_name=Test bulk log Pageview&rec=1",
@@ -12,22 +17,34 @@ import logging
 #    "token_auth": "33dc3f2536d3025974cccb4b4d2d98f4"
 # }
 
+CONF_FILE_NAME = 'config/config.ini'
+raw_config_parser = None
 log = logging.getLogger(__name__)
-urls = []
 
-# The ID of the website we're tracking.
-idsite = ""
-# Required for tracking.
-rec = 1
-# The full URL for the current action.
-url = ""
-# Piwik api version
-apiv = 1
-# The full HTTP Referrer URL.
-urlref = ""
+# TODO: Clean? application = None
+# TODO: Clean? urls = []
+
+# Piwik parameters:
+
+
+idsite=1
+rec=1
 
 # TODO: Use action_name to create a category/api version number?
 # TODO: Track unique visitors with _id?
+
+def get_raw_config_parser():
+    if not raw_config_parser:
+        pkg_root_dir = pkg_resources.get_distribution('Tracker').location
+        conf_file_path = os.path.join(pkg_root_dir, CONF_FILE_NAME)
+
+        config = ConfigParser.RawConfigParser()
+        raw_config_parser = config.read(conf_file_path)
+    return raw_config_parser
+
+def new_piwik_url(url):  # The full URL for the current action.
+    params = urlencode({'idsite': idsite, 'rec': rec, 'url': url })
+    return u'https://openfisca.innocraft.cloud/piwik.php?' + params
 
 
 def set_requests(urls):
