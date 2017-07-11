@@ -18,7 +18,6 @@ import grequests
 # }
 
 CONF_FILE_NAME = 'config/config.ini'
-raw_config_parser = None
 log = logging.getLogger(__name__)
 
 # TODO: Clean? application = None
@@ -34,12 +33,11 @@ rec=1
 # TODO: Track unique visitors with _id?
 
 def get_raw_config_parser():
-    if not raw_config_parser:
-        pkg_root_dir = pkg_resources.get_distribution('Tracker').location
-        conf_file_path = os.path.join(pkg_root_dir, CONF_FILE_NAME)
+    pkg_root_dir = pkg_resources.get_distribution('Tracker').location
+    conf_file_path = os.path.join(pkg_root_dir, CONF_FILE_NAME)
 
-        config = ConfigParser.RawConfigParser()
-        raw_config_parser = config.read(conf_file_path)
+    config = ConfigParser.RawConfigParser()
+    raw_config_parser = config.read(conf_file_path)
     return raw_config_parser
 
 def new_piwik_url(url):  # The full URL for the current action.
