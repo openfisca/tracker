@@ -8,5 +8,6 @@ flake8:
 	@# `make` needs `$$` to output `$`. Ref: http://stackoverflow.com/questions/2382764.
 	flake8 `git ls-files | grep "\.py$$"`
 
-test: flake8
-	nosetests openfisca_tracker --exe --with-doctest
+test:
+	flake8
+	openfisca-run-test --country_package openfisca_country_template tests
