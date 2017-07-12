@@ -6,8 +6,8 @@ from nose.tools import assert_equal
 
 from openfisca_tracker.piwik import PiwikTracker
 
-TRACKER_URL = 'https://openfisca.innocraft.cloud/piwik.php'
-TRACKER_IDSITE = 1
+TRACKER_URL = 'https://stats.data.gouv.fr/piwik.php'
+TRACKER_IDSITE = 4
 FAKE_ACTION_URL = 'https://test-tracking.openfisca.fr'
 
 
