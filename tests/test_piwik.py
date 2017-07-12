@@ -30,5 +30,5 @@ def test_track_callback():
     log.append('main')
 
     assert_equal(log[0], 'main')
-    time.sleep(0.1)
+    time.sleep(0.2)
     assert_equal(log[1], 'callback')
