@@ -15,6 +15,7 @@ setup(
     extras_require={
         'test': [
             'nose',
+            'flake8',
             ]
         },
     classifiers=[
