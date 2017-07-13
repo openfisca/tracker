@@ -1,6 +1,14 @@
 # -*- coding: utf-8 -*-
 
+import json
+
 from unirest import post
+
+BUFFER_SIZE = 10
+
+
+def default_callback(response):
+    return
 
 
 class PiwikTracker:
@@ -11,10 +19,17 @@ class PiwikTracker:
     def __init__(self, url, idsite):
         self.url = url
         self.idsite = idsite
+        self.requests = []
 
-    def default_callback(response):
-        return
 
-    def track(self, action_url, callback = default_callback):
-        params = {'idsite': self.idsite, 'rec': 1, 'url': action_url}
-        post(self.url, params = params, callback = callback)
+    def track(self, action_url):
+        tracked_request = "?idsite={}&url={}&rec=1".format(self.idsite, action_url)
+        self.requests.append(tracked_request)
+        if len(self.requests) == BUFFER_SIZE:
+            post(
+                self.url,
+                headers = { "Accept": "application/json" },
+                params = json.dumps({"requests": self.requests}),
+                callback = default_callback
+                )
+            self.requests = []
