@@ -12,6 +12,9 @@ class PiwikTracker:
         self.url = url
         self.idsite = idsite
 
-    def track(self, action_url, callback = None):
+    def default_callback(response):
+        return
+
+    def track(self, action_url, callback = default_callback):
         params = {'idsite': self.idsite, 'rec': 1, 'url': action_url}
         post(self.url, params = params, callback = callback)
