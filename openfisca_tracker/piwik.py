@@ -5,7 +5,7 @@ from threading import Lock, Timer
 
 from unirest import post
 
-BUFFER_SIZE = 15  # We send the tracked requests by group
+BUFFER_SIZE = 30  # We send the tracked requests by group
 TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
 
 
