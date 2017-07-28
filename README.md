@@ -9,11 +9,12 @@ It is an optional solution to track the calls on an installed OpenFisca Web API.
 ## Ethics
 
 This package is optional and when activated, it sends minimal information on Web API calls:
-* It sends which Web API endpoint was called.
+* It logs which Web API endpoint was called.
 * It is optional: you can chose to activate it on installation.
 * It is configurable: you decide on which Piwik analytics plateform instance you send the information.
-* It is a nonblocking solution: your OpenFisca softwares will continue if the tracker is activated but unreachable.
-Besides, by configuration, Piwik can anonymize IPs and will respect the "do not track" option on the browsers of the users of the Web API (see its [user privacy information](https://piwik.org/privacy/)).
+* It is a nonblocking solution: OpenFisca will keep working as usual if the tracker is activated but unreachable.
+
+As of today, the tracker only logs which routes are called, without any information about the user. No cookie is set on the user's browser.
 
 For these reasons, this module is not subject to [CNIL](https://www.cnil.fr/en/home) or EU privacy requirements.
 
