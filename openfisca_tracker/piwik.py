@@ -25,7 +25,8 @@ class PiwikTracker:
         Timer(TIMER_INTERVAL, self.stop_timer).start()
 
     def stop_timer(self):
-        self.send()
+        if self.requests:
+            self.send()
         self.start_timer()
 
     def send(self):
