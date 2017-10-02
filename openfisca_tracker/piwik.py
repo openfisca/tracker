@@ -4,7 +4,9 @@ import json
 from threading import Lock, Timer
 
 from unirest import post
+import logging
 
+log = logging.getLogger('gunicorn.error')
 BUFFER_SIZE = 30  # We send the tracked requests by group
 TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
 
@@ -14,9 +16,10 @@ def default_callback(response):
 
 
 class PiwikTracker:
-    def __init__(self, url, idsite):
+    def __init__(self, url, idsite, token_auth):
         self.url = url  # Piwik tracking http api endpoint
         self.idsite = idsite  # Piwik id of the tracked website
+        self.token_auth = token_auth
         self.requests = []  # Awaiting tracked requests
         self.lock = Lock()
         self.start_timer()
@@ -33,14 +36,14 @@ class PiwikTracker:
         with self.lock:
             post(
                 self.url,
-                headers = { "Accept": "application/json" },
-                params = json.dumps({"requests": self.requests}),
+                headers = {"Accept": "application/json"},
+                params = json.dumps({"requests": self.requests, "token_auth": self.token_auth}),
                 callback = default_callback
                 )
             self.requests = []
 
-    def track(self, action_url):
-        tracked_request = "?idsite={}&url={}&rec=1".format(self.idsite, action_url)
+    def track(self, action_url, action_ip=""):
+        tracked_request = "?idsite={}&url={}&cip={}&rec=1".format(self.idsite, action_url, action_ip)
         with self.lock:
             self.requests.append(tracked_request)
         if len(self.requests) == BUFFER_SIZE:
