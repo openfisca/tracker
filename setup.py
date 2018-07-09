@@ -12,7 +12,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'unirest == 1.1.7'
+        'requests == 2.19'
         ],
     extras_require={
         'test': [

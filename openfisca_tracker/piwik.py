@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import json
 from threading import Lock, Timer
 
-from unirest import post
+import requests
 import logging
 
 log = logging.getLogger('gunicorn.error')
 BUFFER_SIZE = 30  # We send the tracked requests by group
 TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
-
-
-def default_callback(response):
-    return
 
 
 class PiwikTracker:
@@ -34,11 +29,9 @@ class PiwikTracker:
 
     def send(self):
         with self.lock:
-            post(
+            requests.post(
                 self.url,
-                headers = {"Accept": "application/json"},
-                params = json.dumps({"requests": self.requests, "token_auth": self.token_auth}),
-                callback = default_callback
+                json={"requests": self.requests, "token_auth": self.token_auth},
                 )
             self.requests = []
 
