@@ -24,4 +24,3 @@ def test_track():
 def test_track_with_api_version():
     for i in range(BUFFER_SIZE):
         tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package")
-
