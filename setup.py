@@ -12,7 +12,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'requests == 2.19'
+        'grequests == 0.3.0'
         ],
     extras_require={
         'test': [
