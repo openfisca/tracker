@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import json
 from threading import Lock, Timer
 
-from unirest import post
+import grequests
 import logging
 
 log = logging.getLogger('gunicorn.error')
@@ -11,10 +10,7 @@ BUFFER_SIZE = 30  # We send the tracked requests by group
 TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
 
 
-def default_callback(response):
-    return
-
-
+# It seems that each of the gunicorn worker created by `openfisca serve` creates a separate tracker object.
 class PiwikTracker:
     def __init__(self, url, idsite, token_auth):
         self.url = url  # Piwik tracking http api endpoint
@@ -33,17 +29,22 @@ class PiwikTracker:
         self.start_timer()
 
     def send(self):
+        def exception_handler(request, exception):
+            logging.warning("Tracker request failed : {}".format(exception))
+
+        # Lock in case the Timer and Buffer trigger `send()` simultaneously
         with self.lock:
-            post(
+            req = grequests.post(
                 self.url,
-                headers = {"Accept": "application/json"},
-                params = json.dumps({"requests": self.requests, "token_auth": self.token_auth}),
-                callback = default_callback
+                json={"requests": self.requests, "token_auth": self.token_auth},
                 )
+            grequests.map([req], exception_handler=exception_handler)
             self.requests = []
 
     def track(self, action_url, action_ip=""):
         tracked_request = "?idsite={}&url={}&cip={}&rec=1".format(self.idsite, action_url, action_ip)
+
+        # Lock in case `send()` and `track()` try to access self.requests simultaneously
         with self.lock:
             self.requests.append(tracked_request)
         if len(self.requests) == BUFFER_SIZE:
