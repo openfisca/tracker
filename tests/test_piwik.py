@@ -15,7 +15,7 @@ tracker = PiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
 # Doesn't check that the action was actually tracked, just that it doesn't crash.
 # You can manually check online at TRACKER_URL that the action was indeed tracked.
 # This test never exits. It needs no be manually exited (ctrl + c).
-# It might be caused by the timer thread ser in the piwik.py file.
+# It might be caused by the timer thread in the piwik.py file.
 def test_track():
     for i in range(BUFFER_SIZE):
         tracker.track(FAKE_ACTION_URL + '/test_track', TRACKER_AUTH)

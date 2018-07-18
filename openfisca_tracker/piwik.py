@@ -41,7 +41,6 @@ class PiwikTracker:
             grequests.map([req], exception_handler=exception_handler)
             self.requests = []
 
-
     def track(self, action_url, action_ip=""):
         tracked_request = "?idsite={}&url={}&cip={}&rec=1".format(self.idsite, action_url, action_ip)
 
