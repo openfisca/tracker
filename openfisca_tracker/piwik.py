@@ -41,8 +41,9 @@ class PiwikTracker:
             grequests.map([req], exception_handler=exception_handler)
             self.requests = []
 
-    def track(self, action_url, action_ip=""):
-        tracked_request = "?idsite={}&url={}&cip={}&rec=1".format(self.idsite, action_url, action_ip)
+
+    def track(self, action_url, api_version, action_ip=""):
+        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1".format(self.idsite, action_url, action_ip, api_version, action_url)
 
         # Lock in case `send()` and `track()` try to access self.requests simultaneously
         with self.lock:
