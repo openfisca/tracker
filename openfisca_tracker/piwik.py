@@ -10,7 +10,7 @@ BUFFER_SIZE = 30  # We send the tracked requests by group
 TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
 
 
-# Each of openfisca-core instance creates a tracker object (1 per worker).
+# It seems that each of the gunicorn worker created by `openfisca serve` creates a separate tracker object.
 class PiwikTracker:
     def __init__(self, url, idsite, token_auth):
         self.url = url  # Piwik tracking http api endpoint
