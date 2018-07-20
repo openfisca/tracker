@@ -18,4 +18,14 @@ tracker = PiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
 # It might be caused by the timer thread in the piwik.py file.
 def test_track():
     for i in range(BUFFER_SIZE):
-        tracker.track(FAKE_ACTION_URL + '/test_track', TRACKER_AUTH)
+        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP)
+
+
+def test_track_with_api_version():
+    for i in range(BUFFER_SIZE):
+        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package")
+
+
+def test_track_with_action():
+    for i in range(BUFFER_SIZE):
+        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package", "/test_action")
