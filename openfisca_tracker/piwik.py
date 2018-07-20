@@ -41,10 +41,10 @@ class PiwikTracker:
             grequests.map([req], exception_handler=exception_handler)
             self.requests = []
 
-    def track(self, action_url, action_ip="", api_version="unknown"):
+    def track(self, action_url, action_ip="", api_version="unknown_version", action="unknown_action"):
         # api_version example: openfisca-country-template-3.2.1
 
-        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1".format(self.idsite, action_url, action_ip, api_version, action_url)
+        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1".format(self.idsite, action_url, action_ip, api_version, action)
 
         # Lock in case `send()` and `track()` try to access self.requests simultaneously
         with self.lock:
