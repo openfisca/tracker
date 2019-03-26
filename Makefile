@@ -3,4 +3,4 @@ clean:
 
 test:
 	flake8
-	nosetests --exe --with-doctest
+	pytest
