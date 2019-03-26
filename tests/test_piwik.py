@@ -25,23 +25,10 @@ class TestPiwikTracker(PiwikTracker):
 def tracker():
     tracker = TestPiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
     yield tracker
-    print("bye")
 
 
 # You can manually check online at TRACKER_URL that the action was indeed tracked.
-
-
 def test_track(tracker):
     for i in range(BUFFER_SIZE):
-        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP)
-    assert len(tracker.requests) == 0
-
-
-def test_track_with_api_version(tracker):
-    for i in range(BUFFER_SIZE):
-        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package")
-
-
-def test_track_with_action(tracker):
-    for i in range(BUFFER_SIZE):
         tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package", "/test_action")
+    assert len(tracker.requests) == 0
