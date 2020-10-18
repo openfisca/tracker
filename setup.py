@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 
 setup(
     name = "OpenFisca-Tracker",
-    version = "0.4.1",
+    version = "0.4.2",
     author = "OpenFisca Team",
     author_email = "contact@openfisca.org",
     classifiers = [
