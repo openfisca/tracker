@@ -4,12 +4,12 @@ from openfisca_tracker.piwik import BUFFER_SIZE, PiwikTracker
 
 import pytest
 
-TRACKER_URL = 'https://stats.data.gouv.fr/piwik.php'
+TRACKER_URL = "https://stats.data.gouv.fr/piwik.php"
 TRACKER_IDSITE = 4
 TRACKER_AUTH = ""
 
-FAKE_ACTION_URL = 'https://test-tracking.openfisca.fr'
-FAKE_ACTION_IP = '111.11.1.1'
+FAKE_ACTION_URL = "https://test-tracking.openfisca.fr"
+FAKE_ACTION_IP = "111.11.1.1"
 
 
 class TestPiwikTracker(PiwikTracker):
@@ -43,7 +43,7 @@ def test_track(tracker):
     """
     for i in range(BUFFER_SIZE):
         tracker.track(
-            FAKE_ACTION_URL + '/test_track',
+            FAKE_ACTION_URL + "/test_track",
             FAKE_ACTION_IP,
             "test_country_package",
             f"/test_action_{i}",

@@ -10,7 +10,7 @@ from threading import Lock, Timer
 
 import grequests
 
-log = logging.getLogger('gunicorn.error')
+log = logging.getLogger("gunicorn.error")
 
 # We send the tracked requests by group
 BUFFER_SIZE = 30
