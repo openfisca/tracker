@@ -1,8 +1,9 @@
 """Piwik tracker tests."""
 
+import pytest
+
 from openfisca_tracker.piwik import BUFFER_SIZE, PiwikTracker
 
-import pytest
 
 TRACKER_URL = "https://stats.data.gouv.fr/piwik.php"
 TRACKER_IDSITE = 4
@@ -17,22 +18,17 @@ class TestPiwikTracker(PiwikTracker):
 
     __test__ = False
 
-    def __init__(self, url, idsite, token_auth):
-        super().__init__(url, idsite, token_auth)
-
     def start_timer(self):
         """Do nothing."""
-        pass
 
     def stop_timer(self):
         """Do nothing."""
-        pass
 
 
-@pytest.fixture
-def tracker():
+@pytest.fixture(name = "tracker")
+def create_tracker():
     """Fixture to create a tracker."""
-    yield TestPiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
+    return TestPiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
 
 
 def test_track(tracker):

@@ -63,7 +63,7 @@ class PiwikTracker:
         It logs failed requests.
         """
 
-        def exception_handler(request, exception):
+        def exception_handler(_request, exception):
             logging.warning(f"Tracker request failed : {exception}")
 
         with self.lock:
