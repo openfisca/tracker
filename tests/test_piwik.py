@@ -10,6 +10,8 @@ FAKE_ACTION_IP = '111.11.1.1'
 
 
 class TestPiwikTracker(PiwikTracker):
+    __test__ = False
+
     def __init__(self, url, idsite, token_auth):
         super().__init__(url, idsite, token_auth)
 
