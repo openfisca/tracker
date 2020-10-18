@@ -4,15 +4,23 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="OpenFisca-Tracker",
-    version="0.4.1",
-    description="A Tracker of the OpenFisca Web API usage",
-    license="http://www.fsf.org/licensing/licenses/agpl-3.0.html",
-    author="",
-    packages=find_packages(),
-    include_package_data=True,
-    install_requires=[
-        'grequests == 0.6.0'
+    name = "OpenFisca-Tracker",
+    version = "0.4.1",
+    author = "OpenFisca Team",
+    author_email = "contact@openfisca.org",
+    classifiers = [
+        "License :: OSI Approved :: GNU Affero General Public License v3",
+        "Operating System :: POSIX",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        ],
+    description = "A Tracker of the OpenFisca Web API usage",
+    license = "http://www.fsf.org/licensing/licenses/agpl-3.0.html",
+    include_package_data = True,
+    install_requires = [
+        'grequests == 0.6.0',
         ],
     extras_require={
         'dev': [
@@ -22,8 +30,5 @@ setup(
             "pytest >= 5.0.0, < 6.0.0",
             ]
         },
-    classifiers=[
-        "Programming Language :: Python",
-        "Programming Language :: Python :: 2.7",
-        ]
+    packages = find_packages(),
     )
