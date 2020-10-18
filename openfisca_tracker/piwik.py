@@ -64,7 +64,7 @@ class PiwikTracker:
         """
 
         def exception_handler(request, exception):
-            logging.warning("Tracker request failed : {}".format(exception))
+            logging.warning(f"Tracker request failed : {exception}")
 
         with self.lock:
             req = grequests.post(
@@ -92,9 +92,13 @@ class PiwikTracker:
 
         It sends the requests to track once they have the BUFFER_SIZE.
         """
-        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1"
-        tracked_request = tracked_request.format(
-            self.idsite, action_url, action_ip, api_version, action,
+        tracked_request = (
+            f"?idsite={self.idsite}"
+            f"&url={action_url}"
+            f"&cip={action_ip}"
+            f"&e_c={api_version}"
+            f"&e_a={action}"
+            f"&rec=1"
             )
 
         with self.lock:
