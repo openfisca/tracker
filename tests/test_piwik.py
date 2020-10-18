@@ -1,6 +1,7 @@
 """Piwik tracker tests."""
 
-from openfisca_tracker.piwik import PiwikTracker, BUFFER_SIZE
+from openfisca_tracker.piwik import BUFFER_SIZE, PiwikTracker
+
 import pytest
 
 TRACKER_URL = 'https://stats.data.gouv.fr/piwik.php'

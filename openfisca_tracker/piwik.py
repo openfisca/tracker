@@ -5,10 +5,10 @@ It allows for usage analytics on a [Piwik](https://piwik.org) analytics
 plateform.
 """
 
+import logging
 from threading import Lock, Timer
 
 import grequests
-import logging
 
 log = logging.getLogger('gunicorn.error')
 
