@@ -1,9 +1,9 @@
 # OpenFisca-Tracker
 
-OpenFisca is a versatile microsimulation free software. 
+OpenFisca is a versatile microsimulation free software.
 Check the online [documentation](https://doc.openfisca.fr) for more details.
 
-This package contains the tracker module of the [OpenFisca Web API](https://doc.openfisca.fr/openfisca-web-api/index.html). 
+This package contains the tracker module of the [OpenFisca Web API](https://doc.openfisca.fr/openfisca-web-api/index.html).
 It is an optional solution to track the calls on an installed OpenFisca Web API. It allows for usage analytics on a [Piwik](https://piwik.org) analytics plateform.
 
 ## Ethics
@@ -20,7 +20,7 @@ For these reasons, this module is not subject to [CNIL](https://www.cnil.fr/en/h
 
 ## Environment
 
-This package requires Python 2.7.
+This package requires Python 3.6+.
 It is designed to work with [Piwik](https://piwik.org) analytics plateform.
 
 ## Usage
@@ -36,7 +36,7 @@ If you want to contribute to the tracker itself, welcome! To install it locally 
 ```
 git clone https://github.com/openfisca/tracker.git
 cd tracker
-pip install --editable .
+make install
 ```
 
 ### Testing
@@ -44,6 +44,6 @@ pip install --editable .
 To install the test dependencies and run the tests in the tracker module directory, follow these steps:
 ```
 cd tracker
-pip install --editable .[test]
+make install
 make test
 ```
