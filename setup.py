@@ -27,6 +27,7 @@ setup(
             "flake8-builtins >= 1.5.0, < 2.0.0",
             "flake8-coding >= 1.3.0, < 2.0.0",
             "flake8-commas >= 2.0.0, < 3.0.0",
+            "flake8-comprehensions >= 3.2.0, < 4.0.0",
             "pycodestyle >= 2.6.0, < 3.0.0",
             "pytest >= 5.0.0, < 6.0.0",
             ],
