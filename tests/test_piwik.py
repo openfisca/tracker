@@ -1,3 +1,5 @@
+"""Piwik tracker tests."""
+
 from openfisca_tracker.piwik import PiwikTracker, BUFFER_SIZE
 import pytest
 
@@ -10,27 +12,34 @@ FAKE_ACTION_IP = '111.11.1.1'
 
 
 class TestPiwikTracker(PiwikTracker):
+    """Dummy Piwik tracker."""
+
     __test__ = False
 
     def __init__(self, url, idsite, token_auth):
         super().__init__(url, idsite, token_auth)
 
     def start_timer(self):
+        """Do nothing."""
         pass
 
     def stop_timer(self):
+        """Do nothing."""
         pass
 
 
 @pytest.fixture
 def tracker():
-    tracker = TestPiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
-    yield tracker
+    """Fixture to create a tracker."""
+    yield TestPiwikTracker(TRACKER_URL, TRACKER_IDSITE, TRACKER_AUTH)
 
 
-# You can manually check online at TRACKER_URL that the action was indeed
-# tracked.
 def test_track(tracker):
+    """Test that the tracker works.
+
+    You can manually check online at TRACKER_URL that the action was
+    indeedtracked.
+    """
     for i in range(BUFFER_SIZE):
         tracker.track(
             FAKE_ACTION_URL + '/test_track',
