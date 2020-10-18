@@ -34,6 +34,7 @@ setup(
             "flake8-import-order >= 0.18.0, < 1.0.0",
             "flake8-print >= 3.1.0, < 4.0.0",
             "flake8-quotes >= 3.2.0, < 4.0.0",
+            "flake8-simplify >= 0.9.0, < 1.0.0",
             "pycodestyle >= 2.6.0, < 3.0.0",
             "pytest >= 5.0.0, < 6.0.0",
             ],
