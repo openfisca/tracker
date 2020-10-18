@@ -1,16 +1,19 @@
-# -*- coding: utf-8 -*-
-
 from threading import Lock, Timer
 
 import grequests
 import logging
 
 log = logging.getLogger('gunicorn.error')
-BUFFER_SIZE = 30  # We send the tracked requests by group
-TIMER_INTERVAL = 3600  # We send the tracked requests every TIMER_INTERVAL seconds
+
+# We send the tracked requests by group
+BUFFER_SIZE = 30
+
+# We send the tracked requests every TIMER_INTERVAL seconds
+TIMER_INTERVAL = 3600
 
 
-# It seems that each of the gunicorn worker created by `openfisca serve` creates a separate tracker object.
+# It seems that each of the gunicorn worker created by `openfisca serve`
+# creates a separate tracker object.
 class PiwikTracker:
     def __init__(self, url, idsite, token_auth):
         self.url = url  # Piwik tracking http api endpoint
@@ -36,17 +39,30 @@ class PiwikTracker:
         with self.lock:
             req = grequests.post(
                 self.url,
-                json={"requests": self.requests, "token_auth": self.token_auth},
+                json = {
+                    "requests": self.requests,
+                    "token_auth": self.token_auth,
+                    },
                 )
             grequests.map([req], exception_handler=exception_handler)
             self.requests = []
 
-    def track(self, action_url, action_ip="", api_version="unknown_version", action="unknown_action"):
+    def track(
+            self,
+            action_url,
+            action_ip = "",
+            api_version = "unknown_version",
+            action = "unknown_action",
+            ):
         # api_version example: openfisca-country-template-3.2.1
 
-        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1".format(self.idsite, action_url, action_ip, api_version, action)
+        tracked_request = "?idsite={}&url={}&cip={}&e_c={}&e_a={}&rec=1"
+        tracked_request = tracked_request.format(
+            self.idsite, action_url, action_ip, api_version, action,
+            )
 
-        # Lock in case `send()` and `track()` try to access self.requests simultaneously
+        # Lock in case `send()` and `track()` try to access self.requests
+        # simultaneously
         with self.lock:
             self.requests.append(tracked_request)
         if len(self.requests) == BUFFER_SIZE:

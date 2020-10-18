@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from openfisca_tracker.piwik import PiwikTracker, BUFFER_SIZE
 import pytest
 
@@ -27,9 +26,15 @@ def tracker():
     yield tracker
 
 
-# You can manually check online at TRACKER_URL that the action was indeed tracked.
+# You can manually check online at TRACKER_URL that the action was indeed
+# tracked.
 def test_track(tracker):
     for i in range(BUFFER_SIZE):
-        tracker.track(FAKE_ACTION_URL + '/test_track', FAKE_ACTION_IP, "test_country_package", f"/test_action_{i}")
+        tracker.track(
+            FAKE_ACTION_URL + '/test_track',
+            FAKE_ACTION_IP,
+            "test_country_package",
+            f"/test_action_{i}",
+            )
 
     assert len(tracker.requests) == 0
