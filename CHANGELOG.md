@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.4.2 - [#17](https://github.com/openfisca/tracker/pull/17)
+
+* Technical improvement.
+* Impacted areas: `**/*`
+* Details:
+  - Make style checks stricter and clearer to help developers contribute
+
 ### 0.4.1 - [#14](https://github.com/openfisca/tracker/pull/14)
 
 Update grequests, autopep8, flake8, pycodestyle & pytest
